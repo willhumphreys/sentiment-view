@@ -31,7 +31,7 @@ Parameters:
     Description: The build compute type to use for building the app
   BuildImage:
     Type: String
-    Default: "aws/codebuild/ubuntu-base:14.04"
+    Default: "aws/codebuild/nodejs:6.3.1"
     Description: The build image to use for building the app
 Metadata:
   AWS::CloudFormation::Interface:
