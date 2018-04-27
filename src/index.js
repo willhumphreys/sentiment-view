@@ -2,12 +2,12 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 function Symbol(props) {
-    return <li><a href={`https://s3.amazonaws.com/sentiment-plots/2018-04-24_04%3A04%3A32/${props.value}.png`}>{props.value}</a></li>
+    return <li><a href={`https://s3.amazonaws.com/sentiment-plots/current/${props.value}.png`}>{props.value}</a></li>
 }
 
 function App() {
 
-    const currencies = ['aud-usd', 'eur-gbp', 'eur-jpy', 'eur-usd', 'gbp-usd', ,'nzd-usd', 'usd-cad', 'usd-jpy' ];
+    const currencies = ['aud-usd', 'eur-gbp', 'eur-jpy', 'eur-usd', 'gbp-usd', 'nzd-usd', 'usd-cad', 'usd-jpy' ];
 
     const currencyList = currencies.map((symbol) =>
     <li><Symbol value={symbol}/></li>
@@ -43,8 +43,6 @@ function App() {
         </div>
     );
 }
-
-
 
 
 ReactDOM.render(
