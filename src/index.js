@@ -5,7 +5,7 @@ function Symbol(props) {
     return <li><a href={`https://s3.amazonaws.com/sentiment-plots/current/${props.value}.png`}>{props.value}</a></li>
 }
 
-const API = 'https://sc44xmc00k.execute-api.us-east-1.amazonaws.com/Prod/ReadCurrentPicks';
+const API = 'https://hi8hj4u1y1.execute-api.us-east-1.amazonaws.com/prod/currentpicks';
 const currencies = ['aud-usd', 'eur-gbp', 'eur-jpy', 'eur-usd', 'gbp-usd', 'nzd-usd', 'usd-cad', 'usd-jpy'];
 
 const currencyList = currencies.map((symbol) =>
@@ -27,11 +27,33 @@ const indexList = indexes.map((symbol) =>
 class App extends React.Component {
 
 
+    constructor(props) {
+        super(props);
+        this.state = {
+            mixed: 'Not Set',
+            sentiment: 'Not Set'
+        };
+    }
+
+
+
+
     componentDidMount() {
         console.log('Reading picks');
         fetch(API)
-            .then(response => response.json())
-            .then(data => this.setState({hits: data.hits}));
+            .then( (response) => {
+                return response.json() })
+            .then( (json) => {
+                console.log(json);
+                console.log(json.mixed);
+                console.log(json.sentiment);
+
+                this.setState({
+                    mixed: json.mixed,
+                    sentiment: json.sentiment
+                });
+
+            });
     }
 
     render() {
@@ -52,8 +74,12 @@ class App extends React.Component {
                     </ul>
                 </div>
                 <div>
-                    <p>state</p>
-                    <p>{this.state}</p>
+                    <p>Last Updated</p>
+
+
+
+                    <p>mixed: {this.state.mixed}</p>
+                    <p>sentiment: {this.state.sentiment}</p>
                 </div>
             </div>
 
