@@ -36,14 +36,44 @@ class App extends React.Component {
     }
 
 
-
-
     componentDidMount() {
+        this.fetchLastPickDates();
+    }
+
+    fetchLastPickDates() {
+
+
+
+
+        fetch(API, {
+            method: 'get',
+        }).then(response => {
+            return response.json(); // pass the data as promise to next then block
+        }).then(data => {
+
+
+            this.setState({
+                mixed: data.mixed,
+                sentiment: data.sentiment
+            });
+
+
+            return fetch('https://s3.amazonaws.com/mochi-what-to-trade/mixed/2018-03-04T08%3A02%3A00Z.json');
+        })
+            .then(response => response.json())
+            .catch(error => {
+                console.log('Request failed', error)
+            }).then(r => {
+                console.log(r); // 2nd request result
+            });
+
+
         console.log('Reading picks');
         fetch(API)
-            .then( (response) => {
-                return response.json() })
-            .then( (json) => {
+            .then((response) => {
+                return response.json()
+            })
+            .then((json) => {
                 console.log(json);
                 console.log(json.mixed);
                 console.log(json.sentiment);
@@ -52,6 +82,8 @@ class App extends React.Component {
                     mixed: json.mixed,
                     sentiment: json.sentiment
                 });
+
+                return json;
 
             });
     }
@@ -75,7 +107,6 @@ class App extends React.Component {
                 </div>
                 <div>
                     <p>Last Updated</p>
-
 
 
                     <p>mixed: {this.state.mixed}</p>
