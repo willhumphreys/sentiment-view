@@ -73,15 +73,10 @@ class App extends React.Component {
             let fixedDate = this.getFixedDate(this.state.sentiment);
 
 
-            // this.setState({
-            //     mixed_trades: r
-            // });
-
-
             this.setState({
-                mixed_trades: r
+                mixed_trades_dateTime: r.dateTime,
+                mixed_trades_trades: r.trades
             });
-
 
             return fetch(`https://s3.amazonaws.com/mochi-what-to-trade/sentiment/${fixedDate}.json`);
 
@@ -92,7 +87,8 @@ class App extends React.Component {
 
 
             this.setState({
-                sentiment_trades: r
+                sentiment_trades_dateTime: r.dateTime,
+                sentiment_trades_trades: r.trades
             });
 
 
@@ -101,25 +97,6 @@ class App extends React.Component {
 
         })
 
-
-        //  console.log('Reading picks');
-        // fetch(API)
-        //     .then((response) => {
-        //         return response.json()
-        //     })
-        //     .then((json) => {
-        //         console.log(json);
-        //         console.log(json.mixed);
-        //         console.log(json.sentiment);
-        //
-        //         this.setState({
-        //             mixed: json.mixed,
-        //             sentiment: json.sentiment
-        //         });
-        //
-        //         return json;
-        //
-        //     });
     }
 
     getFixedDate(data) {
@@ -155,7 +132,17 @@ class App extends React.Component {
                 <div>
                     <h3>Sentiment</h3>
                     <ul>
-                        {this.state.mixed_trades}
+                        {this.state.sentiment_trades_dateTime}
+
+                    </ul>
+                </div>
+
+
+                <div>
+                    <h3>Mixed</h3>
+                    <ul>
+                        {this.state.mixed_trades_dateTime}
+
                     </ul>
                 </div>
 
