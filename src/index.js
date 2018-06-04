@@ -24,6 +24,7 @@ const indexList = indexes.map((symbol) =>
     <li><Symbol value={symbol}/></li>
 );
 
+
 class App extends React.Component {
 
 
@@ -31,7 +32,9 @@ class App extends React.Component {
         super(props);
         this.state = {
             mixed: 'Not Set',
-            sentiment: 'Not Set'
+            sentiment: 'Not Set',
+            mixed_trades: null,
+            sentiment_trades: null
         };
     }
 
@@ -41,8 +44,6 @@ class App extends React.Component {
     }
 
     fetchLastPickDates() {
-
-
 
 
         fetch(API, {
@@ -57,35 +58,72 @@ class App extends React.Component {
                 sentiment: data.sentiment
             });
 
+            console.log(encodeURIComponent(data.mixed));
 
-            return fetch('https://s3.amazonaws.com/mochi-what-to-trade/mixed/2018-03-04T08%3A02%3A00Z.json');
-        })
-            .then(response => response.json())
+            let fixedDate = this.getFixedDate(data.mixed);
+            return fetch(`https://s3.amazonaws.com/mochi-what-to-trade/mixed/${fixedDate}.json`);
+        }).then(response => response.json())
             .catch(error => {
                 console.log('Request failed', error)
             }).then(r => {
-                console.log(r); // 2nd request result
+
+            console.log(`First ${r}`);
+
+
+            let fixedDate = this.getFixedDate(this.state.sentiment);
+
+
+            // this.setState({
+            //     mixed_trades: r
+            // });
+
+
+            this.setState({
+                mixed_trades: r
             });
 
 
-        console.log('Reading picks');
-        fetch(API)
-            .then((response) => {
-                return response.json()
-            })
-            .then((json) => {
-                console.log(json);
-                console.log(json.mixed);
-                console.log(json.sentiment);
+            return fetch(`https://s3.amazonaws.com/mochi-what-to-trade/sentiment/${fixedDate}.json`);
 
-                this.setState({
-                    mixed: json.mixed,
-                    sentiment: json.sentiment
-                });
+        }).then(response => response.json())
+            .catch(error => {
+                console.log('Request failed', error)
+            }).then(r => {
 
-                return json;
 
+            this.setState({
+                sentiment_trades: r
             });
+
+
+            console.log(`Second: ${JSON.stringify(r)}`); // 2nd request result
+
+
+        })
+
+
+        //  console.log('Reading picks');
+        // fetch(API)
+        //     .then((response) => {
+        //         return response.json()
+        //     })
+        //     .then((json) => {
+        //         console.log(json);
+        //         console.log(json.mixed);
+        //         console.log(json.sentiment);
+        //
+        //         this.setState({
+        //             mixed: json.mixed,
+        //             sentiment: json.sentiment
+        //         });
+        //
+        //         return json;
+        //
+        //     });
+    }
+
+    getFixedDate(data) {
+        return encodeURIComponent(data.replace('.000', ''));
     }
 
     render() {
@@ -112,6 +150,15 @@ class App extends React.Component {
                     <p>mixed: {this.state.mixed}</p>
                     <p>sentiment: {this.state.sentiment}</p>
                 </div>
+
+
+                <div>
+                    <h3>Sentiment</h3>
+                    <ul>
+                        {this.state.mixed_trades}
+                    </ul>
+                </div>
+
             </div>
 
         );
