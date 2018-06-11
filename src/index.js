@@ -25,6 +25,15 @@ const indexList = indexes.map((symbol) =>
 );
 
 
+// const sentimentTrades = this.state.sentiment_trades_trades.map(trades => {
+//
+//     return (
+//         <tr key={ trades.symbol }>
+//
+//         </tr>
+//     );
+// })
+
 class App extends React.Component {
 
 
@@ -102,6 +111,8 @@ class App extends React.Component {
     getFixedDate(data) {
         return encodeURIComponent(data.replace('.000', ''));
     }
+
+
 
     render() {
         return (
