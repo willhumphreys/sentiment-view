@@ -15,7 +15,11 @@ const currencyList = currencies.map((symbol) =>
 const commodities = ['gold', 'silver', 'us-light-crude'];
 
 
-const cryptoList = ['bitcoin', 'ether'];
+const cryptos = ['bitcoin', 'ether'];
+
+const cryptoList = cryptos.map((symbol) =>
+    <li><Symbol value={symbol}/></li>
+);
 
 const commodityList = commodities.map((symbol) =>
     <li><Symbol value={symbol}/></li>
