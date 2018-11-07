@@ -12,13 +12,16 @@ const currencyList = currencies.map((symbol) =>
     <li><Symbol value={symbol}/></li>
 );
 
-const commodities = ['gold', 'silver'];
+const commodities = ['gold', 'silver', 'us-light-crude'];
+
+
+const cryptoList = ['bitcoin', 'ether'];
 
 const commodityList = commodities.map((symbol) =>
     <li><Symbol value={symbol}/></li>
 );
 
-const indexes = ['wall-street'];
+const indexes = ['wall-street', 'ftse-100'];
 
 const indexList = indexes.map((symbol) =>
     <li><Symbol value={symbol}/></li>
@@ -113,7 +116,6 @@ class App extends React.Component {
     }
 
 
-
     render() {
         return (
             <div>
@@ -129,6 +131,10 @@ class App extends React.Component {
                     <h3>Indexes</h3>
                     <ul>
                         {indexList}
+                    </ul>
+                    <h3>Crypto currencies</h3>
+                    <ul>
+                        {cryptoList}
                     </ul>
                 </div>
                 <div>
