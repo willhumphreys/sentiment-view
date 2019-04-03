@@ -33,7 +33,7 @@ const indexList = indexes.map((symbol) =>
 );
 
 const stocksList = stocks.map((symbol) =>
-    <li><Stock value={symbol}/></li>
+    <li><Symbol value={symbol}/></li>
 );
 
 
