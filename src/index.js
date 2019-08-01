@@ -7,7 +7,7 @@ function Symbol(props) {
 
 const API = 'https://hi8hj4u1y1.execute-api.us-east-1.amazonaws.com/prod/currentpicks';
 const currencies = ['aud-usd', 'eur-gbp', 'eur-jpy', 'eur-usd', 'gbp-usd', 'nzd-usd', 'usd-cad', 'usd-jpy', 'usd-chf'];
-const stocks = ['GOOG', 'Barclays', 'BP'];
+const stocks = ['GOOGL-US', 'AMZN-US'];
 
 const currencyList = currencies.map((symbol) =>
     <li><Symbol value={symbol}/></li>
